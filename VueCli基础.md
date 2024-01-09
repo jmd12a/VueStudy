@@ -123,4 +123,22 @@
    },
    ```
 
-   
+
+##### webStorage
+
+1. 浏览器在通过window.sessionStorage 和 window.localStorage实现本地存储
+
+   存储的形式是键值对，且键值对都是string的形式
+
+2. Api
+
+   - setItem(key,value) 存储一个
+   - getItem(key) 获取一个
+   - removeItem(key) 已出一个
+   - clear()  清空所有
+
+3. 备注
+
+   	1. sessionStorage和localStorage的区别是前者在浏览器被关闭后会被清空，后者则需要手动清除
+   	1. 存储的形式是string类型，其他类型存储的时候可以使用JSON.stringify() 转为string, 获取的时候再使用JSON.parse()转换回来
+   	1.  getItem(xxx)如果获取不到责返回空值，JSON.parse(null)的结果依然为null

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LocalStorage</title>
+</head>
+    <body>
+        <button onclick="save()">点击在浏览器本地存储</button>
+    </body>
+    <script>
+        const  obj = {name : '张三', age: 19}
+        function save(){
+
+            localStorage.setItem('msg','hello, localStorage') // 添加
+            window.localStorage.setItem('obj',JSON.stringify(obj))
+            window.localStorage.removeItem('age') // 删除单个
+            const ovj = JSON.parse(window.localStorage.getItem('obj')) // 获取
+            console.log(ovj)
+            //  window.localStorage.clear() 全部删除
+
+            // 注：localStorage和sessionStorage的函数基本一致，区别是后者每次浏览器关闭都会被删除
+
+        }
+    </script>
+</html>
