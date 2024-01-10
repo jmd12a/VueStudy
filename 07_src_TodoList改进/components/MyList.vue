@@ -4,8 +4,12 @@ export default {
   name: "MyList",
   components: {MyItem},
   props:{
-    Todos:Array,
-    removeTodo:Function
+    Todos:Array
+  },
+  methods:{
+    removeTodo(name){
+      this.$emit('delete', name)
+    }
   }
 
 
@@ -19,7 +23,7 @@ export default {
       <my-item v-for="todo in Todos"
                :key="todo.id"
                :todoObj="todo"
-               :removeTodo="removeTodo"
+               @delete="removeTodo"
       ></my-item>
 
   </ul>

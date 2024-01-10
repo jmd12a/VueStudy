@@ -1,5 +1,6 @@
+<!-- 网页的布局结构 -->
 <template>
-    <!-- 网页的布局结构 -->
+
     <div class="demo2">
 
         <my-school></my-school>
@@ -15,8 +16,12 @@
 <!--       注册子组件事件的方法一： <my-student v-on:transmit="consoleInfo"></my-student>-->
 <!--       当一个子组件被销毁时，其中注册的自定义事件也被销毁-->
       <my-student ref="student"></my-student>
+<!--      组件中也可以绑定原生事件，作用范围是整个div; 点击这个div中的绑定了自定义事件按钮，会先触发div事件，然后触发自定义事件-->
+<!--      <my-student ref="student" @click.native="test()"></my-student>-->
+      <h3>学生姓名： {{studentName}}</h3>
+
 <!--       当一个子组件的某个实例对象被销毁时，不会影响其他的实例对象-->
-      <my-student v-on:transmit="consoleInfo"></my-student>
+<!--      <my-student v-on:transmit="consoleInfo"></my-student>-->
     </div>
 </template>
 
@@ -34,13 +39,25 @@ export default {
         MyStudent:MyStudent
     },
 
+    data(){
+      return{
+        studentName:''
+      }
+    },
+
     methods:{
       consoleInfo(name){
+
         console.log(name)
+        this.studentName = name // 通过监听事件获取子组件中的数据后给data中的属性赋值
       },
-      consoleInfo1(){
+      /*consoleInfo1(){
         console.log('demo')
-      },
+      },*/
+
+      test(){
+        window.alert('123')
+      }
     },
 
     mounted() {
@@ -53,8 +70,16 @@ export default {
         this.$refs.student.$on('transmit',this.consoleInfo)
 
       },3000)*/
-      this.$refs.student.$on('transmit',this.consoleInfo)
-      this.$refs.student.$on('testUnBind',this.consoleInfo1)
+
+      /* 关于回调函数中this指向的问题
+      * 1. 如果直接在这个写回调函数，回调函数会指向student实例对象，因为该函数是被student.$on调用的
+      * 2. 在这里可以剪头函数，因为剪头函数没有自己的this，会往上级找，在上级中找到的是mounted,而mounted中的this是app实例对象
+      * */
+      this.$refs.student.$on('transmit',(name) =>{
+        this.studentName = name
+      })
+
+      // this.$refs.student.$on('testUnBind',this.consoleInfo1)
 
     }
 }

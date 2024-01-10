@@ -2,8 +2,7 @@
 export default {
   name: "MyItem",
   props:{
-    todoObj:Object,
-    removeTodo:Function
+    todoObj:Object
   },
   methods:{
     /*removeTodo(todoObj){
@@ -12,7 +11,7 @@ export default {
     }*/
 
     handlerDelete(id){
-      this.removeTodo(id)
+      this.$emit('delete',this.todoObj.id)
     }
   }
 }
@@ -29,7 +28,7 @@ export default {
       <input type="checkbox" v-model="todoObj.completed">
       <span>{{todoObj.name}}</span>
     </label>
-    <button class="btn btn-danger" @click="handlerDelete(todoObj.id)">删除</button>
+    <button class="btn btn-danger" @click="handlerDelete()">删除</button>
   </li>
 
 </template>

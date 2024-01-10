@@ -32,7 +32,7 @@ export default {
           // 在这个函数中通过this.$emit()方法去触发这个事件，这个事件的注册是在父组件中注册的
           // 第一个是事件名，第二个是自定义参数
           this.$emit('transmit',this.name);
-          this.$emit('testUnBind')
+          // this.$emit('testUnBind')
       },
       unBind(){
         // this.$off('transmit') // 解绑单个自定义事件

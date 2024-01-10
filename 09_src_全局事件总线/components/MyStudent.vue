@@ -10,7 +10,7 @@
 
 <script>
 
-import Pubsub  from "pubsub-js";
+
 export default {
 
     name:'MyStudent',
@@ -23,7 +23,8 @@ export default {
         },
     methods:{
       trig(){
-        Pubsub.publish('passName',this.name)
+        // 在事件总线中触发这个事件，并传递参数
+        this.$bus.$emit('passInformation',this.name)
       }
     },
 

@@ -3,7 +3,7 @@ export default {
   name: "MyFooter",
   props:{
     todos:Array,
-    removalsCompleted:Function
+
   },
 
   computed:{
@@ -38,7 +38,7 @@ export default {
       this.todos.forEach(todo => todo.completed = e.target.checked)
     },*/
     removals() {
-      this.removalsCompleted()
+      this.$emit('removalsCompleted')
     }
   }
 

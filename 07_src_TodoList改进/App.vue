@@ -65,9 +65,9 @@ export default {
   <div>
 <!--    传递的是这个列表的引用-->
     <my-header :todos="Todos"></my-header>
-    <my-list :todos="Todos" :removeTodo = "removeTodo" ></my-list>
+    <my-list :todos="Todos"  @delete="removeTodo"></my-list>
 
-    <my-footer :todos="Todos" :removalsCompleted="removalsCompleted"></my-footer>
+    <my-footer :todos="Todos" @removalsCompleted="removalsCompleted"></my-footer>
 
   </div>
 </template>
