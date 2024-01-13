@@ -79,6 +79,12 @@ body {
   border: 1px solid #bd362f;
 }
 
+.btn-edit {
+  color: #4b83c0;
+  background-color: #4b83c0;
+  border: 1px solid #3b72b0;
+}
+
 .btn-danger:hover {
   color: #fff;
   background-color: #bd362f;

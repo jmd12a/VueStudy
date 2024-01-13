@@ -73,7 +73,7 @@ export default {
 
       /* 关于回调函数中this指向的问题
       * 1. 如果直接在这个写回调函数，回调函数会指向student实例对象，因为该函数是被student.$on调用的
-      * 2. 在这里可以剪头函数，因为剪头函数没有自己的this，会往上级找，在上级中找到的是mounted,而mounted中的this是app实例对象
+      * 2. 在这里可以箭头函数，因为箭头函数没有自己的this，会往上级找，在上级中找到的是mounted,而mounted中的this是app实例对象
       * */
       this.$refs.student.$on('transmit',(name) =>{
         this.studentName = name

@@ -40,6 +40,11 @@ export default {
       this.pubId = Pubsub.subscribe('passName',(messageName,data) =>{
         console.log(messageName,data)
       })
+    },
+
+    beforeDestroy() {
+
+      Pubsub.unsubscribe(this.pubId)
     }
 }
 </script>

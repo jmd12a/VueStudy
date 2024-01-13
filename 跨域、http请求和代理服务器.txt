@@ -1,0 +1,140 @@
+
+
+关于跨域问题、http请求以及代理服务器
+	一、跨域问题
+		1. 原因
+			跨域问题是由于浏览器的跨域策略导致的，当发起请求的地址和请求的目标地址处在不同的域导致的。
+		    	
+			对于不同的域的定义：
+				不同的协议
+				不同的域名
+				不同的端口号
+
+		2. 进一步的理解
+			发生跨域问题时，请求可以到达服务器，服务器也会给正常的返回结果，浏览器也能收到返回结果，但是浏览器会将返回结果拦截导致前端无法获取到结果。
+		
+		3. 解决跨域问题
+			1）前端解决：
+				 在发起请求的端口号建立一个代理服务器，将请求发送给代理服务器，由代理服务器转发到目标服务器； 由于代理服务器和请求地址在同一端口，不会发生跨域问题。
+
+				 这种方法通过代理服务器和客户端设置在同一地址，通过代理服务器进行服务器与客户端的交互解决了跨域问题。
+
+			2）后端解决：
+				 -1：如果后端有反向代理服务器，可以在反向代理服务器中修改响应头的信息，这种方法效率更高，节省服务器资源。
+
+				 -2：如果后端没有反向代理服务器，可以在过滤器或者全局的跨域设置中修改响应头的信息等。
+
+				 
+				
+			3)  响应头有关跨域的信息
+				
+				add_header Access-Control-Allow-Origin $cors_origin ; 	    # 设置允许跨域的网址
+				
+				add_header Access-Control-Allow-Methods GET,POST,PUT,DELETE,OPTIONS ;	 # 允许哪些方法跨域
+
+				add_header Access-Control-Allow-Credentials true ;						  # 是否允许携带cookie
+
+				add_header Access-Control-Allow-Headers Content-Type,Authorization,x-auth-token ; # 允许请求头携带哪些信息     
+
+				add_header Access-Control-Max-Age 1728000 ; # 一次预检请求生效的最大时长
+
+				add_header Access-Control-Expose-Headers X-Custom-Header; # 浏览器可以访问的额外响应头，通常是服务器自定义的响应头
+
+				当响应头的信息被修改，浏览器检测到响应头中的信息允许跨域时，就会将返回结果交给前端。
+	
+	二、http请求
+		
+		1. 请求头中的信息
+			
+			1) host：
+				
+				host中是请求头中携带的目标的地址，包括目标的域名和端口号等。如果没有设置端口号，使用的则是默认端口号80/443。
+
+				在web服务器中，使用 (HttpServletRequest) request.getServerName() 获取请求的目标服务器的域名或ip地址
+							       使用 (HttpServletRequest) request.getServerPort() 获取请求的目标服务器的端口号
+
+				- 存在代理服务器
+					
+					当请求经过代理服务器转发给目标服务器时，
+						如果代理服务器不修改Host的值，那么Host的目标地址必然是代理服务器的地址这样，目标服务器可以发现请求是经过代理转发的。
+						如果代理服务器不修改Host的值，将其修改为转发的目标地址，那么目标服务器可能无法发现请求是经过代理转发的。
+			2) Origin:
+				
+				表明了请求的的来源，即发起请求的域名或者ip地址与端口号(有默认值)
+
+			3) User-Agent: 
+				
+				用户电脑和浏览器的信息
+
+			4) Authorization:
+				请求的认证信息
+
+			5) Referer:
+				发起的请求的页面
+			
+			6) Content-Type:
+				在请求体中指定请求体数据的MIME (媒体)类型，在响应体中指定响应体数据的MIME 类型。			    
+
+				常见的类型：
+					text/plain：
+						纯文本，没有任何格式。
+
+					text/html：
+						HTML 格式的文本，用于网页。
+
+					application/json：
+						JSON 格式的数据，常用于与服务端的交互。
+
+					application/x-www-form-urlencoded：
+						表单数据被编码为键值对，这是 HTML 表单默认的类型。
+
+					multipart/form-data
+						用于表单提交文件和数据。
+
+					application/xml：
+						 XML 数据格式
+
+					image/png、image/jpeg 等：
+						图像类型。
+
+					application/javascript：
+						JavaScript 代码。
+
+					application/pdf：
+						PDF 文档格式。
+
+					application/octet-stream 
+						任意的二进制数据流，在下载文件时可能会被使用
+			7) Cookie:
+				向服务器中发送Cookie
+					
+		2. 响应头中的信息
+			
+			1) Content-Disposition:
+				
+				告诉浏览器处理数据的方式，
+				当设置为"attachment;filename=1.txt"时，告诉浏览器下载该文件并将文件名保存为1.txt
+			  
+			2) Set-Cookie:
+				告诉服务器存储cookie，如：Set-Cookie: sessionId=abc123; Max-Age=3600; Path=/; Secure
+			
+			3) Content-Type:
+				响应类型，同上。
+					
+		3. 服务器中获取的请求地址信息(域名、ip地址、端口号等)
+			
+			信息分为三种类型：
+
+			   - 1. 发送请求的ip地址和端口号(请求的来源)
+
+			   - 2. 请求的目标地址和端口(请求的目标，可能是代理服务器，由host决定)
+
+			   - 3. 当前服务器的地址和端口(当前服务器的ip、端口号等，如果与目标地址不一致，则是经过了代理处理)
+        
+			当存在代理时，请求的目标地址的信息与当前服务器的信息可能是不一致的
+        
+		
+
+				
+		    
+	

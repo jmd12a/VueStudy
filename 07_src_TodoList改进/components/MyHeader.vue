@@ -20,6 +20,15 @@ export default {
       this.todos.unshift(obj) // 通过props传入的属性不能直接操作赋值，因为不能直接改变内存地址，但是可以对这个值本身进行一些操作
       this.title=''
     }
+  },
+
+  mounted() {
+    this.$bus.$on('updateTodoName',(id, newName) => {
+      this.todos.forEach(todo => {
+        if (todo.id === id)
+          todo.name = newName
+      })
+    })
   }
 }
 </script>

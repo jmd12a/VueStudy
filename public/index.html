@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="">
-  <head>
+<head>
     <!--   字符集设置   -->
     <meta charset="utf-8">
     <!--   针对IE浏览器的特殊配置，让IE浏览器以最高的渲染级别渲染页面   -->
@@ -9,16 +9,21 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <!--   配置页签图标 <%= BASE_URL %> 指的是public文件，防止在生成环境中出现问题   -->
     <link rel="icon" href="./favicon.ico">
+    <!--   引入第三方的样式，如果直接在.vue中引入，vue会进行严格的检查可能会导致报错，在这个html页面引入，所有组件的结构样式都属于这个
+       html中的div,这个页面中引入的样式在所有的组件中也就都可以使用了
+     -->
+    <link rel="stylesheet" href="./css/bootstrap.css">
     <!--   网页标题   -->
     <title>Vue学习</title>
-  </head>
-  <body>
-    <!--  当浏览器不支持js时，渲染其中的内容  -->
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <!--  容器  -->
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+</head>
+<body>
+<!--  当浏览器不支持js时，渲染其中的内容  -->
+<noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+</noscript>
+<!--  容器  -->
+<div id="app"></div>
+<!-- built files will be auto injected -->
+</body>
 </html>

@@ -38,7 +38,7 @@ export default {
   /* 此时已经清理了虚拟dom并注销了组件实例对象，可以在这里解绑*/
     destroyed() {
       // 只提供事件名，则会移除这个事件所有的监听器
-
+      this.$bus.$off('passInformation')
 
       // 同时提供事件名和回调函数，可以移除特定的监听器,但是注册事件监听时不能使用匿名函数
       this.$bus.$off('passInformation',this.testEvent)
